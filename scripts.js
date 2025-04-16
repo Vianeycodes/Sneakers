@@ -23,75 +23,136 @@
  *
  */
 
-const FRESH_PRINCE_URL =
-  "https://upload.wikimedia.org/wikipedia/en/3/33/Fresh_Prince_S1_DVD.jpg";
-const CURB_POSTER_URL =
-  "https://m.media-amazon.com/images/M/MV5BZDY1ZGM4OGItMWMyNS00MDAyLWE2Y2MtZTFhMTU0MGI5ZDFlXkEyXkFqcGdeQXVyMDc5ODIzMw@@._V1_FMjpg_UX1000_.jpg";
-const EAST_LOS_HIGH_POSTER_URL =
-  "https://static.wikia.nocookie.net/hulu/images/6/64/East_Los_High.jpg";
 
-// This is an array of strings (TV show titles)
-let titles = [
-  "Fresh Prince of Bel Air",
-  "Curb Your Enthusiasm",
-  "East Los High",
-];
-// Your final submission should have much more data than this, and
-// you should use more than just an array of strings to store it all.
 
-// This function adds cards the page to display the data in the array
-function showCards() {
-  const cardContainer = document.getElementById("card-container");
-  cardContainer.innerHTML = "";
-  const templateCard = document.querySelector(".card");
 
-  for (let i = 0; i < titles.length; i++) {
-    let title = titles[i];
 
-    // This part of the code doesn't scale very well! After you add your
-    // own data, you'll need to do something totally different here.
-    let imageURL = "";
-    if (i == 0) {
-      imageURL = FRESH_PRINCE_URL;
-    } else if (i == 1) {
-      imageURL = CURB_POSTER_URL;
-    } else if (i == 2) {
-      imageURL = EAST_LOS_HIGH_POSTER_URL;
+
+
+//   1: storing inputs and setting up-------------------------------------
+
+let submittedPrices = []; // store guesses
+
+function submitPrice() {
+  const input = document.getElementById("priceInput").value;
+  if (input) {
+    submittedPrices.push(Number(input)); // Add number to array
+    document.getElementById("priceInput").value = ""; // Clear input to add more if they want
+    alert("Thanks for your price"); // Confirm to user input recieved
+  }
+}
+// showing the average price
+function togglePriceResults() {
+  const resultsDiv = document.getElementById("priceResults");
+  if (resultsDiv.style.display === "none") {
+    if (submittedPrices.length > 0) {
+      const sum = submittedPrices.reduce((a, b) => a + b, 0);
+      const avg = (sum / submittedPrices.length).toFixed(2); // round to  2 decimal places
+      resultsDiv.innerText = `Average user guess: $${avg}`;
+    } else {
+      resultsDiv.innerText = "No submissions yet.";
     }
-
-    const nextCard = templateCard.cloneNode(true); // Copy the template card
-    editCardContent(nextCard, title, imageURL); // Edit title and image
-    cardContainer.appendChild(nextCard); // Add new card to the container
+    resultsDiv.style.display = "block";  //all this to make sure there is a valid input so that the average will be calculated correctly
+  } else {
+    resultsDiv.style.display = "none";
   }
 }
 
-function editCardContent(card, newTitle, newImageURL) {
-  card.style.display = "block";
 
-  const cardHeader = card.querySelector("h2");
-  cardHeader.textContent = newTitle;
 
-  const cardImage = card.querySelector("img");
-  cardImage.src = newImageURL;
-  cardImage.alt = newTitle + " Poster";
 
-  // You can use console.log to help you debug!
-  // View the output by right clicking on your website,
-  // select "Inspect", then click on the "Console" tab
-  console.log("new card:", newTitle, "- html: ", card);
+
+
+//  2: Poll-------------------------------------------------------------
+
+let uglyVotes = { yes: 0, no: 0 }; // Store poll counts
+
+function voteUgly(answer) {
+    //yes or no vote
+  if (answer === "yes" || answer === "no") {
+    uglyVotes[answer]++; //this is to increase the vote count
+    updateUglyPoll(); // updates on screen automatically
+  }
+}
+//for poll results
+function updateUglyPoll() {
+  const total = uglyVotes.yes + uglyVotes.no;//adding votes
+  const yesPercent = total ? ((uglyVotes.yes / total) * 100).toFixed(1) : 0; //only if its less than 1 we are findning the percent
+  const noPercent = total ? ((uglyVotes.no / total) * 100).toFixed(1) : 0;
+
+  document.getElementById("uglyResults").innerText =//updating current votes sumbited
+    `Yes: ${uglyVotes.yes} (${yesPercent}%) | No: ${uglyVotes.no} (${noPercent}%)`;
 }
 
-// This calls the addCards() function when the page is first loaded
-document.addEventListener("DOMContentLoaded", showCards);
 
-function quoteAlert() {
-  console.log("Button Clicked!");
-  alert(
-    "I guess I can kiss heaven goodbye, because it got to be a sin to look this good!"
-  );
+
+
+
+
+
+// 3: Sneaker Quiz----------------------------------------------------------
+
+function checkQuiz() {
+  const value = document.getElementById("quizSelect").value;//getting answer selected
+  let resultText = "";//empty to store
+
+  // Match answer to sneaker type
+  if (value === "hype") {
+    resultText = " Travis Scott Jordan 1s";
+  } else if (value === "classic") {
+    resultText = " Air Force 1s ";
+  } else if (value === "comfort") {
+    resultText = "Yeezy Boost 350 ";
+  } else {
+    resultText = "Please select an answer."; //if nothing is selected but button is pressed
+  }
+
+  document.getElementById("quizResult").innerText = resultText;//display results
 }
 
-function removeLastCard() {
-  titles.pop(); // Remove last item in titles array
-  showCards(); // Call showCards again to refresh
+
+
+
+
+
+// 4: Sneaker Trivia -----------------------------------------------------
+
+function checkTrivia(answer) {
+  let correct = "Nike"; // Correct answer
+
+  if (answer === correct) {
+    document.getElementById("triviaResult").innerText = " Correct! ";
+  } else {
+    document.getElementById("triviaResult").innerText = " Nope!";
+  }
 }
+
+
+
+
+
+// 5: Guess the Number Game but one try-------------------------------------
+
+const correctNumber = 2388; // correct number of sneakers
+
+// submit the user's guess
+function submitGuess() {
+  const guess = document.getElementById("guessInput").value;//getting user input
+  const guessResult = document.getElementById("guessResult");
+
+  // check if it is a number
+  if (guess && !isNaN(guess)) {
+    if (Number(guess) === correctNumber) {
+      guessResult.innerText = " Correct! Jordan Michael Geller has 2,388 sneakers in his collection.";
+    } else {
+      guessResult.innerText = `Nope! The correct number is 2,388 sneakers. `;
+    }
+
+      // only one try
+      document.getElementById("guessInput").disabled = true;
+      document.getElementById("guessButton").disabled = true;
+
+    } else {
+      guessResult.innerText = "Please enter a valid number.";
+    }
+  }
