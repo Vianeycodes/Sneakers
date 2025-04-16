@@ -48,7 +48,7 @@ function togglePriceResults() {
     if (submittedPrices.length > 0) {
       const sum = submittedPrices.reduce((a, b) => a + b, 0);
       const avg = (sum / submittedPrices.length).toFixed(2); // round to  2 decimal places
-      resultsDiv.innerText = `Average user guess: $${avg}`;
+      resultsDiv.innerText = `Average of the price users will pay : $${avg}`;
     } else {
       resultsDiv.innerText = "No submissions yet.";
     }
