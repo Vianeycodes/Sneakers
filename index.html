@@ -1,31 +1,123 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>LA TV Shows | Home</title>
-    <meta name="description" content="A Catalog of Shows Set in Los Angeles" />
-    <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript" src="scripts.js"></script>
-  </head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  
+  <title>Sneaker Legends</title> <!-- Title in the browser tab -->
+  
+  <link rel="stylesheet" href="style.css" /> <!-- Link to external CSS -->
+  
+  
+</head>
+<body>
+    
+    
+    <!-- Main title -->
+  <h1>Sneaker Legends</h1>
+  
+  
+  <!-- Section 0: Intro -->
+  <section id="intro">
+    <h2>Welcome to My Sneaker World!</h2>
+    <p>
+       Hey everyone my name is Vianey! Welcome to one of my biggest passions — sneaker collecting! I used to be a very obsessed sneakerhead, starting in middle school with over 30 pairs in my collection. Each sneaker holds a special meaning and represents something more than just style. This website is my way of sharing my love for sneakers with you, with interactive activities!</p>
+  </section>
+  
+  
+  <!-- Section 1: Most Expensive Sneaker -->
+  <section id="expensive">
+    <h2>The Most Expensive Sneaker in the World</h2>
+    <img src="https://ca-times.brightspotcdn.com/dims4/default/dbc1c9e/2147483647/strip/true/crop/5083x3423+0+0/resize/1200x808!/format/webp/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F14%2Fa8%2F9200add044daa89b0cc94d2db6f1%2Fgettyimages-1250825388.jpg" />
+    
+    <p> This is the Air Jordan 13s that sold for $2.2 million after The last dance documentary. It was sold on April 11, 2023 and became the worls most expensive sneaker ever sold!
+    </p>
+    <p>How much would you personally pay for this shoe?</p>
+    <input type="number" id="priceInput" placeholder="Enter number here" />
+    <button onclick="submitPrice()">Submit</button>
+    <button onclick="togglePriceResults()">Show user average results</button>
+    <div id="priceResults" style="display:none;"></div> <!-- Hidden by default -->
+  </section>
+  
+  
+  <!-- Section 2: Ugliest Sneaker  -->
+  <section id="ugly">
+    <h2>The Ugliest Expensive Sneaker</h2>
+    <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTQtqpgfMf_QCsll_vIV77ocq4PSZBEDxl4O_9_kIlL7b7VQi5SbI5l_ellnfhawS5kwWV1csDmdPr3GGNbXz4K6Y-I3FywYQpp11ljuAZOl5-uHLk5qe6n0g" />
+    <p>This is the Superstar Tape sneaker by Golden Goose an has a retail price of $530.This shoe was postes all over and people were very upset on why it lloks like this and why the price is over $500 when it looks like a beat up shoe! </p>
+    <p>Would you wear this!??(Casually?)</p>
+    <button onclick="voteUgly('yes')">Yes</button>
+    <button onclick="voteUgly('no')">No</button>
+    <div id="uglyResults"></div> <!-- Poll results -->
+  </section>
 
-  <body>
-    <header class="main-header">
-      <h1 class="title">LA TV Shows</h1>
-    </header>
-    <div id="card-container"></div>
-    <div class="card" style="display: none">
-      <div class="card-content">
-        <h2>TV Show Title</h2>
-        <img src="" alt="TV Show Poster" />
-        <ul>
-          <li>Bullet Point 1</li>
-          <li>Bullet Point 2</li>
-          <li>Bullet Point 3</li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer">
-      <button onclick="quoteAlert();">Get A Quote!</button>
-      <button onclick="removeLastCard();">Remove A Card!</button>
-    </div>
-  </body>
+  
+  <!-- Section 3: Rarest Sneaker -->
+  <section id="rarest">
+    <h2>This is the Rarest Sneaker in the World!!(That I know of)</h2>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2wgRJA3ugp_m2w586OvtCItvm3i70INB9A&s" />
+    <p> This is the Nike Air Yeezy 1 Grammy. Kanye West wore it in 2008 during the grammys.It was never released as is one of the rarest sneaker ever!
+    <p><a href="https://www.complex.com/sneakers/a/victor-deng/nike-air-yeezy-1-sample-grammy-goldin-auctions" target="_blank">Click here to read about it</a></p>
+  </section>
+
+  
+  <!-- Section 4: Sneaker Quiz -->
+  <section id="quiz">
+    <h2>Sneaker Personality Quiz(Find the sneaker that fits you)</h2>
+    <p>What’s your go to sneaker vibe?</p>
+    
+    <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy-XRevQEW7sOCyN9SQMCgpdT_bAXcmZ4yHQ&s" />
+    <img  src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSCdapDEFePRKVOqmFoA49L2nfK87xLrMR0OFbsDGjoBXzbU7V0uGgjGCD6MaB7eFO38oEAor0n-67-sxCHqIMlP6L5eXg7DTRR71AHpEtwtixTsok3hfUi" />
+    <img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjiMpavTrRZQE4NWF2YkyJjn5zEkjHeDYG6w&s" />
+    
+    <select id="quizSelect">
+      <option value="">Select one</option>
+      <option value="hype">I want hype </option>
+      <option value="classic">I like classic</option>
+      <option value="comfort"> I like Comfort </option>
+    </select>
+    <button onclick="checkQuiz()">What is my sneaker</button>
+    <div id="quizResult"></div> <!-- Show quiz result -->
+  </section>
+
+  
+  <!-- Section 5: Sneaker simple Trivia -->
+  <section id="trivia">
+    <h2> Sneaker Trivia(you have a 50% chance of being correct)</h2>
+    <p>Which brand collaborated with Off-White to make the famous “The Ten” collection?</p>
+    <img src="https://passion-stickers.com/4385-thickbox_default/off-white.jpg" />
+    <button onclick="checkTrivia('Nike')">Nike</button>
+    <button onclick="checkTrivia('Adidas')">Adidas</button>
+    <div id="triviaResult"></div> <!-- Show trivia result -->
+  </section>
+  
+  <!-- Section 6: World's Largest Sneaker Collection -->
+  <section id="largestCollection">
+    <h2>The World's Largest Sneaker Collection</h2>
+    <img  src="https://www.guinnessworldrecords.com/world-records/images/largest-collection-of-sneakers-trainers-header.jpg" />
+    <p>Jordan Michael Geller holds the Guinness World Record for the largest sneaker collection ever! His collection is known as the ShoeZeum.His collection is estimated to be worth over a  million.
+    </p>
+    <p>
+      <a href="https://www.guinnessworldrecords.com/world-records/largest-collection-of-sneakers-trainers" target="_blank">Read more it</a>
+    </p>
+    <p>
+      <a href="https://www.youtube.com/watch?v=vzkiN2vxmjM" target="_blank">Watch a video of his collection</a>
+    </p>
+
+    <p>(Before clicking on links) How many sneakers do you think he has in his collection?</p>
+    <input type="number" id="guessInput" placeholder="Enter your guess..." />
+    <button id="guessButton" onclick="submitGuess()">Submit Guess</button>
+    <div id="guessResult"></div> <!-- Show result after submission -->
+
+  </section>
+
+
+  
+  
+  
+  <!-- Link to external JavaScript -->
+  <script src="script.js"></script>
+</body>
 </html>
+
